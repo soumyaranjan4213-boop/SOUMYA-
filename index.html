@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soumya Design Studio — Upload, Create & Publish</title>
+  <meta name="description" content="A modern professional platform to upload designs, process images, and publish unique creations." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a href="#" class="logo" aria-label="Soumya Design Studio Home">
+        <span class="logo-mark">S</span>
+        <span class="logo-text">Soumya</span>
+      </a>
+      <nav aria-label="Primary navigation" class="primary-nav">
+        <ul>
+          <li><a href="#upload-design">Upload Design</a></li>
+          <li><a href="#uploads">My Uploads</a></li>
+          <li><a href="#get-in-touch">Get in Touch</a></li>
+        </ul>
+      </nav>
+      <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="primary-nav" onclick="toggleMenu()">
+        <i class="ph ph-list"></i>
+      </button>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <!-- Hero -->
+    <section class="hero" aria-label="Introduction">
+      <div class="container hero-inner">
+        <h1 class="hero-title">Create. Refine. <span>Publish.</span></h1>
+        <p class="hero-subtitle">Upload your vision, process it with precision, and publish something uniquely yours.</p>
+        <a href="#upload-design" class="btn btn-primary">Start Your Design</a>
+      </div>
+      <div class="hero-decoration" aria-hidden="true"></div>
+    </section>
+
+    <!-- Upload Design Wizard -->
+    <section id="upload-design" class="upload-design" aria-label="Upload Design">
+      <div class="container">
+        <div class="section-header">
+          <h2>Upload Design</h2>
+          <p>A smooth, guided journey from photo to published design — in 5 steps.</p>
+        </div>
+
+        <div class="wizard" role="region" aria-label="Design upload wizard">
+          <!-- Step Indicator -->
+          <div class="wizard-steps" aria-label="Wizard progress" role="tablist">
+            <button class="step-tab" id="tab-step-1" onclick="goToStep(1)" aria-selected="true" aria-controls="panel-step-1" role="tab" aria-label="Step 1 Upload">1. Upload</button>
+            <button class="step-tab" id="tab-step-2" onclick="goToStep(2)" aria-selected="false" aria-controls="panel-step-2" role="tab" aria-label="Step 2 Process">2. Process</button>
+            <button class="step-tab" id="tab-step-3" onclick="goToStep(3)" aria-selected="false" aria-controls="panel-step-3" role="tab" aria-label="Step 3 Preview">3. Preview</button>
+            <button class="step-tab" id="tab-step-4" onclick="goToStep(4)" aria-selected="false" aria-controls="panel-step-4" role="tab" aria-label="Step 4 Finalize">4. Finalize</button>
+            <button class="step-tab" id="tab-step-5" onclick="goToStep(5)" aria-selected="false" aria-controls="panel-step-5" role="tab" aria-label="Step 5 Publish">5. Publish</button>
+          </div>
+
+          <!-- Step Panels -->
+          <div class="wizard-panels">
+            <!-- Step 1 -->
+            <div id="panel-step-1" class="wizard-panel active" role="tabpanel" aria-labelledby="tab-step-1">
+              <h3>Step 1 — Upload Your Photo</h3>
+              <p>Choose a high-quality image to begin. Only images are accepted.</p>
+              <form id="upload-form" onsubmit="handleUpload(event)" aria-label="Upload photo form">
+                <label for="image-input" class="upload-label">
+                  <span class="upload-icon"><i class="ph ph-image"></i></span>
+                  <span class="upload-text">Click or drag an image here</span>
+                </label>
+                <input type="file" id="image-input" name="image" accept="image/*" onchange="previewImage(this)" aria-required="true" />
+                <div id="preview-area" class="preview-area" aria-live="polite"></div>
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-secondary" disabled id="upload-btn">Process Design</button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Step 2 -->
+            <div id="panel-step-2" class="wizard-panel" role="tabpanel" aria-labelledby="tab-step-2" hidden>
+              <h3>Step 2 — Process Design</h3>
+              <p>Review the design adjustments before finalizing. Make any edits needed.</p>
+              <div class="process-preview" aria-label="Design process preview">
+                <img id="process-img" src="" alt="Processed design preview" loading="lazy" />
+                <div class="process-meta">
+                  <p><strong>File:</strong> <span id="process-filename">—</span></p>
+                  <p><strong>Size:</strong> <span id="process-size">—</span></p>
+                </div>
+              </div>
+              <div class="form-actions">
+                <button class="btn btn-outline" onclick="prevStep()">Back</button>
+                <button class="btn btn-secondary" onclick="nextStep()">Continue</button>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div id="panel-step-3" class="wizard-panel" role="tabpanel" aria-labelledby="tab-step-3" hidden>
+              <h3>Step 3 — Preview Design</h3>
+              <p>Preview how your design will look once published. Everything looks good?</p>
+              <div class="preview-card" aria-label="Design preview card">
+                <img id="preview-img" src="" alt="Design preview" loading="lazy" />
+                <div class="preview-caption">
+                  <h4>Unique Design</h4>
+                  <p>Ready to finalize and publish.</p>
+                </div>
+              </div>
+              <div class="form-actions">
+                <button class="btn btn-outline" onclick="prevStep()">Back</button>
+                <button class="btn btn-secondary" onclick="nextStep()">Continue</button>
+              </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div id="panel-step-4" class="wizard-panel" role="tabpanel" aria-labelledby="tab-step-4" hidden>
+              <h3>Step 4 — Finalize</h3>
+              <p>Confirm details and add any final notes before publishing.</p>
+              <form id="finalize-form" onsubmit="event.preventDefault();" aria-label="Finalize details form">
+                <label for="design-title">Design Title</label>
+                <input type="text" id="design-title" name="design-title" placeholder="Give your design a name" value="My Unique Design" />
+                <label for="design-notes">Notes (optional)</label>
+                <textarea id="design-notes" name="design-notes" rows="3" placeholder="Any final thoughts..."></textarea>
+                <div class="form-actions">
+                  <button class="btn btn-outline" onclick="prevStep()">Back</button>
+                  <button class="btn btn-secondary" onclick="nextStep()">Continue</button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Step 5 -->
+            <div id="panel-step-5" class="wizard-panel" role="tabpanel" aria-labelledby="tab-step-5" hidden>
+              <h3>Step 5 — Publish</h3>
+              <p>Your design is ready to go live. Publish it to your uploads.</p>
+              <div class="publish-preview" aria-label="Publish preview">
+                <img id="publish-img" src="" alt="Design ready to publish" loading="lazy" />
+                <div class="publish-details">
+                  <h4 id="publish-title">My Unique Design</h4>
+                  <p>Published just now.</p>
+                </div>
+              </div>
+              <div class="form-actions">
+                <button class="btn btn-outline" onclick="prevStep()">Back</button>
+                <button class="btn btn-primary" onclick="publishDesign()">Publish Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- My Uploads -->
+    <section id="uploads" class="my-uploads" aria-label="My Uploads">
+      <div class="container">
+        <div class="section-header">
+          <h2>My Uploads</h2>
+          <p>A curated gallery of your published designs. Unique, professional, and entirely yours.</p>
+        </div>
+        <div id="uploads-grid" class="uploads-grid" aria-live="polite" aria-label="Uploaded designs gallery">
+          <div class="upload-card placeholder" aria-hidden="true">
+            <div class="upload-card-inner">
+              <div class="upload-img-wrapper">
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=600&fit=crop&q=80" alt="Sample design placeholder" />
+              </div>
+              <div class="upload-card-body">
+                <h3>Mountain Light</h3>
+                <p>Published yesterday</p>
+                <a href="#" class="btn btn-sm btn-outline">View</a>
+              </div>
+            </div>
+          </div>
+          <div class="upload-card placeholder" aria-hidden="true">
+            <div class="upload-card-inner">
+              <div class="upload-img-wrapper">
+                <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=600&h=600&fit=crop&q=80" alt="Sample design placeholder" />
+              </div>
+              <div class="upload-card-body">
+                <h3>Golden Fields</h3>
+                <p>Published 3 days ago</p>
+                <a href="#" class="btn btn-sm btn-outline">View</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Get in Touch -->
+    <section id="get-in-touch" class="get-in-touch" aria-label="Get in touch">
+      <div class="container">
+        <div class="section-header">
+          <h2>Get in Touch</h2>
+          <p>Have questions, ideas, or just want to say hello? We'd love to hear from you.</p>
+        </div>
+        <div class="contact-cards">
+          <a href="mailto:imaveofficial@gmail.com" class="contact-card email-card" aria-label="Send email to support">
+            <div class="contact-icon" aria-hidden="true"><i class="ph-fill ph-envelope-simple"></i></div>
+            <div class="contact-body">
+              <h3>Email Support</h3>
+              <p>imaveofficial@gmail.com</p>
+            </div>
+          </a>
+          <a href="#" class="contact-card" onclick="showToast('Social links will open soon.')" aria-label="Visit our social media">
+            <div class="contact-icon" aria-hidden="true"><i class="ph-fill ph-instagram-logo"></i></div>
+            <div class="contact-body">
+              <h3>Social</h3>
+              <p>Follow our latest work</p>
+            </div>
+          </a>
+          <a href="#" class="contact-card" onclick="showToast('Location details coming soon.')" aria-label="Visit our office">
+            <div class="contact-icon" aria-hidden="true"><i class="ph-fill ph-map-tr-fold"></i></div>
+            <div class="contact-body">
+              <h3>Location</h3>
+              <p>Bhubaneswar, Odisha</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+      <p>&copy; <span id="year"></span> Soumya Design Studio. All rights reserved.</p>
+      <nav aria-label="Footer navigation">
+        <ul>
+          <li><a href="#upload-design">Upload</a></li>
+          <li><a href="#uploads">Uploads</a></li>
+          <li><a href="#get-in-touch">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
