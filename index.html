@@ -45,6 +45,10 @@
                 <button class="icon-btn search-toggle" aria-label="Search" id="search-toggle">
                     <i class="fas fa-search"></i>
                 </button>
+                <button class="icon-btn wishlist-toggle" aria-label="Wishlist" id="wishlist-toggle">
+                    <i class="fas fa-heart"></i>
+                    <span class="wishlist-count" id="wishlist-count">0</span>
+                </button>
                 <button class="icon-btn cart-toggle" aria-label="Cart" id="cart-toggle">
                     <i class="fas fa-shopping-bag"></i>
                     <span class="cart-count" id="cart-count">0</span>
@@ -83,9 +87,17 @@
             </div>
         </div>
         <div class="cart-footer" id="cart-footer" style="display: none;">
+            <div class="coupon-box">
+                <input type="text" id="coupon-input" placeholder="Enter coupon code">
+                <button class="btn btn-outline" id="apply-coupon">Apply</button>
+            </div>
             <div class="cart-total-row">
                 <span>Subtotal</span>
                 <span id="cart-subtotal">$0.00</span>
+            </div>
+            <div class="cart-total-row" id="discount-row" style="display: none;">
+                <span>Discount <small id="coupon-code"></small></span>
+                <span id="cart-discount">-$0.00</span>
             </div>
             <div class="cart-total-row">
                 <span>Tax (8%)</span>
@@ -204,6 +216,20 @@
 
             <div class="products-grid" id="products-grid">
                 <!-- Products rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Recently Viewed Section -->
+    <section class="recently-viewed section-padding" id="recently-viewed" style="display: none;">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Your Journey</span>
+                <h2 class="section-title">Recently Viewed</h2>
+                <p class="section-subtitle">Pick up where you left off.</p>
+            </div>
+            <div class="products-grid" id="recently-viewed-grid">
+                <!-- Rendered by JS -->
             </div>
         </div>
     </section>
@@ -419,6 +445,25 @@
         </div>
     </section>
 
+    <!-- Order History Section -->
+    <section class="order-history section-padding" id="order-history">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Your Orders</span>
+                <h2 class="section-title">Order History</h2>
+                <p class="section-subtitle">Track and review your past purchases.</p>
+            </div>
+            <div class="orders-list" id="orders-list">
+                <div class="orders-empty">
+                    <div class="empty-icon"><i class="fas fa-box-open"></i></div>
+                    <h3>No orders yet</h3>
+                    <p>Complete a purchase to see your order history here.</p>
+                    <a href="#products" class="btn btn-primary">Start Shopping</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- AI Tools Section -->
     <section class="ai-tools section-padding" id="ai-tools">
         <div class="container">
@@ -617,13 +662,193 @@
     <div class="modal" id="checkout-modal">
         <div class="modal-content checkout-modal-content">
             <button class="modal-close" id="checkout-modal-close"><i class="fas fa-times"></i></button>
-            <div class="modal-body" id="checkout-body">
-                <div class="checkout-success">
-                    <div class="success-icon"><i class="fas fa-check-circle"></i></div>
-                    <h2>Order Confirmed!</h2>
-                    <p>Thank you for your purchase. A confirmation has been sent to your email.</p>
-                    <button class="btn btn-primary" id="checkout-done">Continue Shopping</button>
+            <div class="checkout-header">
+                <h3><i class="fas fa-lock"></i> Secure Checkout</h3>
+                <div class="checkout-steps">
+                    <div class="checkout-step active" data-step="1">Shipping</div>
+                    <div class="checkout-step" data-step="2">Payment</div>
+                    <div class="checkout-step" data-step="3">Review</div>
                 </div>
+            </div>
+            <div class="modal-body" id="checkout-body">
+                <!-- Step 1: Shipping -->
+                <div class="checkout-pane active" data-pane="1">
+                    <h4>Shipping Information</h4>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ship-first">First Name *</label>
+                            <input type="text" id="ship-first" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ship-last">Last Name *</label>
+                            <input type="text" id="ship-last" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ship-email">Email *</label>
+                        <input type="email" id="ship-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ship-address">Address *</label>
+                        <input type="text" id="ship-address" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ship-city">City *</label>
+                            <input type="text" id="ship-city" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ship-zip">ZIP / Postal *</label>
+                            <input type="text" id="ship-zip" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ship-country">Country *</label>
+                        <select id="ship-country" required>
+                            <option value="">Select country</option>
+                            <option value="US">United States</option>
+                            <option value="CA">Canada</option>
+                            <option value="UK">United Kingdom</option>
+                            <option value="AU">Australia</option>
+                            <option value="IN">India</option>
+                            <option value="DE">Germany</option>
+                            <option value="FR">France</option>
+                            <option value="JP">Japan</option>
+                            <option value="OTHER">Other</option>
+                        </select>
+                    </div>
+                    <div class="checkout-actions">
+                        <button class="btn btn-outline" id="checkout-cancel">Cancel</button>
+                        <button class="btn btn-primary" id="checkout-to-payment">Continue to Payment</button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Payment -->
+                <div class="checkout-pane" data-pane="2">
+                    <h4>Payment Method</h4>
+                    <div class="payment-methods-select">
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="card" checked>
+                            <span><i class="fas fa-credit-card"></i> Credit / Debit Card</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="paypal">
+                            <span><i class="fab fa-paypal"></i> PayPal</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="apple">
+                            <span><i class="fab fa-apple"></i> Apple Pay</span>
+                        </label>
+                    </div>
+                    <div class="card-fields" id="card-fields">
+                        <div class="form-group">
+                            <label for="card-name">Name on Card *</label>
+                            <input type="text" id="card-name" placeholder="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label for="card-number">Card Number *</label>
+                            <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="card-expiry">Expiry (MM/YY) *</label>
+                                <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5">
+                            </div>
+                            <div class="form-group">
+                                <label for="card-cvc">CVC *</label>
+                                <input type="text" id="card-cvc" placeholder="123" maxlength="4">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="checkout-actions">
+                        <button class="btn btn-outline" id="checkout-back-shipping">Back</button>
+                        <button class="btn btn-primary" id="checkout-to-review">Review Order</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Review -->
+                <div class="checkout-pane" data-pane="3">
+                    <h4>Review Your Order</h4>
+                    <div class="checkout-summary" id="checkout-summary">
+                        <!-- Populated by JS -->
+                    </div>
+                    <div class="checkout-actions">
+                        <button class="btn btn-outline" id="checkout-back-payment">Back</button>
+                        <button class="btn btn-primary" id="place-order-btn"><i class="fas fa-lock"></i> Place Order</button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Success -->
+                <div class="checkout-pane" data-pane="4">
+                    <div class="checkout-success">
+                        <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+                        <h2>Order Confirmed!</h2>
+                        <p>Thank you for your purchase. A confirmation has been sent to your email.</p>
+                        <div class="order-id" id="order-id"></div>
+                        <button class="btn btn-primary" id="checkout-done">Continue Shopping</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Account Modal -->
+    <div class="modal" id="account-modal">
+        <div class="modal-content account-modal-content">
+            <button class="modal-close" id="account-modal-close"><i class="fas fa-times"></i></button>
+            <div class="account-header">
+                <div class="account-avatar"><i class="fas fa-user"></i></div>
+                <div>
+                    <h3>My Account</h3>
+                    <p>Manage your profile and preferences</p>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form class="account-form" id="account-form">
+                    <div class="form-group">
+                        <label for="account-name">Display Name</label>
+                        <input type="text" id="account-name" placeholder="Your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="account-email">Email</label>
+                        <input type="email" id="account-email" placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="account-phone">Phone</label>
+                        <input type="tel" id="account-phone" placeholder="+1 234 567 890">
+                    </div>
+                    <div class="account-stats">
+                        <div class="account-stat">
+                            <span id="account-orders">0</span>
+                            <small>Orders</small>
+                        </div>
+                        <div class="account-stat">
+                            <span id="account-uploads">0</span>
+                            <small>Uploads</small>
+                        </div>
+                        <div class="account-stat">
+                            <span id="account-wishlist">0</span>
+                            <small>Wishlist</small>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Save Profile</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Cookie Consent -->
+    <div class="cookie-banner" id="cookie-banner">
+        <div class="container">
+            <p>We use cookies to enhance your browsing experience and analyze our traffic.</p>
+            <div class="cookie-actions">
+                <button class="btn btn-outline" id="cookie-decline">Decline</button>
+                <button class="btn btn-primary" id="cookie-accept">Accept</button>
             </div>
         </div>
     </div>
