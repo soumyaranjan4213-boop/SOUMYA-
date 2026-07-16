@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMAVE | Premium AI Design Marketplace</title>
+    <meta name="description" content="IMAVE - Professional premium e-commerce platform for AI-powered design uploads and unique product discovery.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader" class="preloader">
+        <div class="preloader-content">
+            <div class="logo-mark">I</div>
+            <div class="loading-bar"><span></span></div>
+            <p>Loading Premium Experience...</p>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Navigation -->
+    <header class="header" id="header">
+        <nav class="navbar container">
+            <a href="#home" class="logo">
+                <span class="logo-mark">I</span>
+                <span class="logo-text">IMAVE</span>
+            </a>
+
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#products" class="nav-link">Shop</a></li>
+                <li><a href="#upload-design" class="nav-link">Upload Design</a></li>
+                <li><a href="#my-uploads" class="nav-link">My Uploads</a></li>
+                <li><a href="#ai-tools" class="nav-link">AI Tools</a></li>
+                <li><a href="#contact" class="nav-link">Get in Touch</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button class="icon-btn search-toggle" aria-label="Search" id="search-toggle">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="icon-btn wishlist-toggle" aria-label="Wishlist" id="wishlist-toggle">
+                    <i class="fas fa-heart"></i>
+                    <span class="wishlist-count" id="wishlist-count">0</span>
+                </button>
+                <button class="icon-btn cart-toggle" aria-label="Cart" id="cart-toggle">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count" id="cart-count">0</span>
+                </button>
+                <button class="icon-btn user-toggle" aria-label="Account" id="user-toggle">
+                    <i class="fas fa-user"></i>
+                </button>
+                <button class="hamburger" id="hamburger" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Search Bar -->
+        <div class="search-bar" id="search-bar">
+            <div class="container">
+                <input type="text" id="search-input" placeholder="Search products, designs, styles...">
+                <button class="btn btn-primary" id="search-btn">Search</button>
+                <button class="search-close" id="search-close"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <aside class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3><i class="fas fa-shopping-bag"></i> Your Cart</h3>
+            <button class="cart-close" id="cart-close"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <div class="cart-empty">
+                <i class="fas fa-shopping-bag"></i>
+                <p>Your cart is empty</p>
+                <a href="#products" class="btn btn-primary" id="continue-shopping">Continue Shopping</a>
+            </div>
+        </div>
+        <div class="cart-footer" id="cart-footer" style="display: none;">
+            <div class="coupon-box">
+                <input type="text" id="coupon-input" placeholder="Enter coupon code">
+                <button class="btn btn-outline" id="apply-coupon">Apply</button>
+            </div>
+            <div class="cart-total-row">
+                <span>Subtotal</span>
+                <span id="cart-subtotal">$0.00</span>
+            </div>
+            <div class="cart-total-row" id="discount-row" style="display: none;">
+                <span>Discount <small id="coupon-code"></small></span>
+                <span id="cart-discount">-$0.00</span>
+            </div>
+            <div class="cart-total-row">
+                <span>Tax (8%)</span>
+                <span id="cart-tax">$0.00</span>
+            </div>
+            <div class="cart-total-row total">
+                <span>Total</span>
+                <span id="cart-total">$0.00</span>
+            </div>
+            <button class="btn btn-primary btn-block checkout-btn" id="checkout-btn">Proceed to Checkout</button>
+        </div>
+    </aside>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg">
+            <div class="hero-gradient"></div>
+            <div class="hero-pattern"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <span class="hero-badge"><i class="fas fa-sparkles"></i> Premium AI Design Marketplace</span>
+                <h1 class="hero-title">Design Without <span class="accent">Limits</span></h1>
+                <p class="hero-subtitle">Discover unique designs, upload your creativity, and transform ideas into premium products with our powerful AI-driven platform.</p>
+                <div class="hero-buttons">
+                    <a href="#products" class="btn btn-primary btn-lg">Explore Collection</a>
+                    <a href="#upload-design" class="btn btn-outline btn-lg">Upload Your Design</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">50K+</span>
+                        <span class="stat-label">Unique Designs</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">12K+</span>
+                        <span class="stat-label">Happy Creators</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">4.9</span>
+                        <span class="stat-label">User Rating</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card card-1">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&h=500&fit=crop" alt="Abstract design">
+                </div>
+                <div class="hero-card card-2">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=400&fit=crop" alt="Fashion design">
+                </div>
+                <div class="hero-card card-3">
+                    <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=350&h=450&fit=crop" alt="Product design">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features section-padding">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Why IMAVE</span>
+                <h2 class="section-title">A Premium Experience Built for Creators</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-upload"></i></div>
+                    <h3>Upload & Publish</h3>
+                    <p>Share your designs in a streamlined 5-step publishing process with professional presentation.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-wand-magic-sparkles"></i></div>
+                    <h3>AI-Powered Tools</h3>
+                    <p>Enhance creativity with smart AI text generation and design assistance tools.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-shield-halved"></i></div>
+                    <h3>Secure Marketplace</h3>
+                    <p>Every transaction is protected with industry-standard encryption and creator rights.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-globe"></i></div>
+                    <h3>Global Reach</h3>
+                    <p>Connect with buyers and creators worldwide through a curated premium marketplace.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products section-padding" id="products">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Curated Collection</span>
+                <h2 class="section-title">Premium Products</h2>
+                <p class="section-subtitle">Handpicked designs from top creators around the world.</p>
+            </div>
+
+            <div class="products-toolbar">
+                <div class="category-filters" id="category-filters">
+                    <button class="filter-btn active" data-category="all">All</button>
+                    <button class="filter-btn" data-category="apparel">Apparel</button>
+                    <button class="filter-btn" data-category="digital">Digital Art</button>
+                    <button class="filter-btn" data-category="home">Home Decor</button>
+                    <button class="filter-btn" data-category="accessories">Accessories</button>
+                </div>
+                <div class="sort-dropdown">
+                    <select id="sort-select">
+                        <option value="featured">Featured</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="newest">Newest Arrivals</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="products-grid" id="products-grid">
+                <!-- Products rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Recently Viewed Section -->
+    <section class="recently-viewed section-padding" id="recently-viewed" style="display: none;">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Your Journey</span>
+                <h2 class="section-title">Recently Viewed</h2>
+                <p class="section-subtitle">Pick up where you left off.</p>
+            </div>
+            <div class="products-grid" id="recently-viewed-grid">
+                <!-- Rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload Design Section -->
+    <section class="upload-design section-padding" id="upload-design">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Design Studio</span>
+                <h2 class="section-title">Upload Your Design</h2>
+                <p class="section-subtitle">Transform your ideas into premium products in 5 simple steps.</p>
+            </div>
+
+            <div class="upload-studio">
+                <!-- Progress Steps -->
+                <div class="upload-steps">
+                    <div class="step active" data-step="1">
+                        <div class="step-number">1</div>
+                        <span class="step-label">Upload</span>
+                    </div>
+                    <div class="step" data-step="2">
+                        <div class="step-number">2</div>
+                        <span class="step-label">Style</span>
+                    </div>
+                    <div class="step" data-step="3">
+                        <div class="step-number">3</div>
+                        <span class="step-label">Customize</span>
+                    </div>
+                    <div class="step" data-step="4">
+                        <div class="step-number">4</div>
+                        <span class="step-label">Review</span>
+                    </div>
+                    <div class="step" data-step="5">
+                        <div class="step-number">5</div>
+                        <span class="step-label">Publish</span>
+                    </div>
+                </div>
+
+                <!-- Upload Wizard -->
+                <div class="upload-wizard">
+                    <!-- Step 1: Upload Photo -->
+                    <div class="wizard-step active" data-step="1">
+                        <div class="upload-area" id="upload-area">
+                            <input type="file" id="design-file" accept="image/*" hidden>
+                            <div class="upload-placeholder" id="upload-placeholder">
+                                <div class="upload-icon"><i class="fas fa-cloud-arrow-up"></i></div>
+                                <h3>Drop your design here</h3>
+                                <p>or click to browse (JPG, PNG, WEBP up to 10MB)</p>
+                                <button class="btn btn-primary" id="browse-btn">Select File</button>
+                            </div>
+                            <div class="upload-preview" id="upload-preview" style="display: none;">
+                                <img id="preview-image" src="" alt="Design preview">
+                                <button class="btn btn-outline btn-sm" id="change-file">Change File</button>
+                            </div>
+                        </div>
+                        <div class="wizard-actions">
+                            <button class="btn btn-primary next-step" data-next="2" id="step1-next">Continue to Style</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Style -->
+                    <div class="wizard-step" data-step="2">
+                        <h3 class="wizard-title">Choose Your Style</h3>
+                        <div class="style-grid">
+                            <label class="style-option">
+                                <input type="radio" name="style" value="minimal" checked>
+                                <span class="style-card">
+                                    <i class="fas fa-circle-notch"></i>
+                                    <span>Minimal</span>
+                                </span>
+                            </label>
+                            <label class="style-option">
+                                <input type="radio" name="style" value="abstract">
+                                <span class="style-card">
+                                    <i class="fas fa-shapes"></i>
+                                    <span>Abstract</span>
+                                </span>
+                            </label>
+                            <label class="style-option">
+                                <input type="radio" name="style" value="vintage">
+                                <span class="style-card">
+                                    <i class="fas fa-crown"></i>
+                                    <span>Vintage</span>
+                                </span>
+                            </label>
+                            <label class="style-option">
+                                <input type="radio" name="style" value="modern">
+                                <span class="style-card">
+                                    <i class="fas fa-bolt"></i>
+                                    <span>Modern</span>
+                                </span>
+                            </label>
+                            <label class="style-option">
+                                <input type="radio" name="style" value="nature">
+                                <span class="style-card">
+                                    <i class="fas fa-leaf"></i>
+                                    <span>Nature</span>
+                                </span>
+                            </label>
+                            <label class="style-option">
+                                <input type="radio" name="style" value="urban">
+                                <span class="style-card">
+                                    <i class="fas fa-city"></i>
+                                    <span>Urban</span>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="wizard-actions">
+                            <button class="btn btn-outline prev-step" data-prev="1">Back</button>
+                            <button class="btn btn-primary next-step" data-next="3">Continue</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Customize -->
+                    <div class="wizard-step" data-step="3">
+                        <h3 class="wizard-title">Customize Details</h3>
+                        <div class="customize-form">
+                            <div class="form-group">
+                                <label for="design-title">Design Title *</label>
+                                <input type="text" id="design-title" placeholder="Enter a catchy title">
+                            </div>
+                            <div class="form-group">
+                                <label for="design-description">Description</label>
+                                <textarea id="design-description" rows="3" placeholder="Tell the story behind your design..."></textarea>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="design-category">Category</label>
+                                    <select id="design-category">
+                                        <option value="apparel">Apparel</option>
+                                        <option value="digital">Digital Art</option>
+                                        <option value="home">Home Decor</option>
+                                        <option value="accessories">Accessories</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="design-price">Price ($)</label>
+                                    <input type="number" id="design-price" min="0" step="0.01" placeholder="0.00">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="wizard-actions">
+                            <button class="btn btn-outline prev-step" data-prev="2">Back</button>
+                            <button class="btn btn-primary next-step" data-next="4">Review Design</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Review -->
+                    <div class="wizard-step" data-step="4">
+                        <h3 class="wizard-title">Review Your Design</h3>
+                        <div class="review-card">
+                            <div class="review-image">
+                                <img id="review-image" src="" alt="Review">
+                            </div>
+                            <div class="review-details">
+                                <h4 id="review-title">Untitled Design</h4>
+                                <p id="review-description">No description provided.</p>
+                                <div class="review-tags">
+                                    <span class="tag" id="review-style">Minimal</span>
+                                    <span class="tag" id="review-category">Apparel</span>
+                                </div>
+                                <div class="review-price" id="review-price">Free</div>
+                            </div>
+                        </div>
+                        <div class="wizard-actions">
+                            <button class="btn btn-outline prev-step" data-prev="3">Back</button>
+                            <button class="btn btn-primary next-step" data-next="5">Continue to Publish</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 5: Publish -->
+                    <div class="wizard-step" data-step="5">
+                        <div class="publish-panel">
+                            <div class="publish-icon"><i class="fas fa-rocket"></i></div>
+                            <h3 class="wizard-title">Ready to Publish?</h3>
+                            <p>Your design will be saved to <strong>My Uploads</strong> and can be listed in the marketplace. User uploads are clearly tagged and never mislabeled as AI-generated.</p>
+                            <div class="publish-terms">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="terms-check">
+                                    <span>I confirm this is my original work and I agree to the marketplace terms.</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="wizard-actions">
+                            <button class="btn btn-outline prev-step" data-prev="4">Back</button>
+                            <button class="btn btn-primary publish-btn" id="publish-btn" disabled>
+                                <i class="fas fa-check"></i> Publish Design
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- My Uploads Section -->
+    <section class="my-uploads section-padding" id="my-uploads">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Your Studio</span>
+                <h2 class="section-title">My Uploads</h2>
+                <p class="section-subtitle">Your original designs, professionally displayed.</p>
+            </div>
+
+            <div class="uploads-grid" id="uploads-grid">
+                <div class="uploads-empty" id="uploads-empty">
+                    <div class="empty-icon"><i class="fas fa-images"></i></div>
+                    <h3>No uploads yet</h3>
+                    <p>Start by uploading your first design in the Design Studio.</p>
+                    <a href="#upload-design" class="btn btn-primary">Upload Design</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order History Section -->
+    <section class="order-history section-padding" id="order-history">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Your Orders</span>
+                <h2 class="section-title">Order History</h2>
+                <p class="section-subtitle">Track and review your past purchases.</p>
+            </div>
+            <div class="orders-list" id="orders-list">
+                <div class="orders-empty">
+                    <div class="empty-icon"><i class="fas fa-box-open"></i></div>
+                    <h3>No orders yet</h3>
+                    <p>Complete a purchase to see your order history here.</p>
+                    <a href="#products" class="btn btn-primary">Start Shopping</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Tools Section -->
+    <section class="ai-tools section-padding" id="ai-tools">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">AI Assistant</span>
+                <h2 class="section-title">AI Text & Design Tools</h2>
+                <p class="section-subtitle">Generate captions, descriptions, and creative ideas with AI.</p>
+            </div>
+
+            <div class="ai-tools-grid">
+                <div class="ai-tool-card">
+                    <div class="ai-tool-header">
+                        <div class="ai-icon"><i class="fas fa-pen-nib"></i></div>
+                        <span class="ai-badge">AI Generated</span>
+                    </div>
+                    <h3>Caption Generator</h3>
+                    <p>Enter a topic and get professional product captions instantly.</p>
+                    <div class="ai-input-group">
+                        <input type="text" id="caption-topic" placeholder="e.g., abstract summer t-shirt">
+                        <button class="btn btn-primary" id="generate-caption">Generate</button>
+                    </div>
+                    <div class="ai-result" id="caption-result" style="display: none;"></div>
+                </div>
+
+                <div class="ai-tool-card">
+                    <div class="ai-tool-header">
+                        <div class="ai-icon"><i class="fas fa-tags"></i></div>
+                        <span class="ai-badge">AI Generated</span>
+                    </div>
+                    <h3>Tag Suggestions</h3>
+                    <p>Generate relevant hashtags and keywords for your design.</p>
+                    <div class="ai-input-group">
+                        <input type="text" id="tag-topic" placeholder="e.g., minimalist mountain poster">
+                        <button class="btn btn-primary" id="generate-tags">Generate</button>
+                    </div>
+                    <div class="ai-result" id="tags-result" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Get in Touch Section -->
+    <section class="contact section-padding" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">We're Here</span>
+                <h2 class="section-title">Get in Touch</h2>
+                <p class="section-subtitle">Reach out for support, partnerships, or just to say hello.</p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-card" id="email-support-card">
+                        <a href="mailto:imaveofficial@gmail.com" class="contact-icon-link" aria-label="Email support">
+                            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        </a>
+                        <div class="contact-detail">
+                            <h3>Email Support</h3>
+                            <a href="mailto:imaveofficial@gmail.com" class="contact-link">imaveofficial@gmail.com</a>
+                            <p>We typically reply within 24 hours.</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon"><i class="fas fa-headset"></i></div>
+                        <div class="contact-detail">
+                            <h3>Live Chat</h3>
+                            <span class="contact-link">Mon - Fri, 9am - 6pm EST</span>
+                            <p>Instant help from our creator success team.</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon"><i class="fas fa-location-dot"></i></div>
+                        <div class="contact-detail">
+                            <h3>Creative HQ</h3>
+                            <span class="contact-link">123 Design Avenue, New York, NY</span>
+                            <p>Visit our flagship studio by appointment.</p>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://pinterest.com" target="_blank" rel="noopener" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                        <a href="https://dribbble.com" target="_blank" rel="noopener" aria-label="Dribbble"><i class="fab fa-dribbble"></i></a>
+                    </div>
+                </div>
+
+                <div class="contact-form-wrapper">
+                    <form class="contact-form" id="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contact-name">Name</label>
+                                <input type="text" id="contact-name" required placeholder="Your name">
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-email">Email</label>
+                                <input type="email" id="contact-email" required placeholder="your@email.com">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-subject">Subject</label>
+                            <select id="contact-subject" required>
+                                <option value="">Select a topic</option>
+                                <option value="support">General Support</option>
+                                <option value="sales">Sales Inquiry</option>
+                                <option value="partnership">Partnership</option>
+                                <option value="feedback">Feedback</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-message">Message</label>
+                            <textarea id="contact-message" rows="5" required placeholder="How can we help?"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#home" class="logo">
+                        <span class="logo-mark">I</span>
+                        <span class="logo-text">IMAVE</span>
+                    </a>
+                    <p>Premium AI design marketplace empowering creators to upload, discover, and sell unique designs.</p>
+                    <div class="newsletter">
+                        <h4>Subscribe for updates</h4>
+                        <div class="newsletter-form">
+                            <input type="email" id="newsletter-email" placeholder="Enter your email">
+                            <button class="btn btn-primary" id="newsletter-btn">Join</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Shop</h4>
+                    <ul>
+                        <li><a href="#products">All Products</a></li>
+                        <li><a href="#products" data-category="apparel">Apparel</a></li>
+                        <li><a href="#products" data-category="digital">Digital Art</a></li>
+                        <li><a href="#products" data-category="home">Home Decor</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Creator</h4>
+                    <ul>
+                        <li><a href="#upload-design">Upload Design</a></li>
+                        <li><a href="#my-uploads">My Uploads</a></li>
+                        <li><a href="#ai-tools">AI Tools</a></li>
+                        <li><a href="#">Seller Guidelines</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; <span id="year"></span> IMAVE. All rights reserved.</p>
+                <div class="payment-methods">
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fab fa-cc-paypal"></i>
+                    <i class="fab fa-cc-apple-pay"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Product Modal -->
+    <div class="modal" id="product-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close"><i class="fas fa-times"></i></button>
+            <div class="modal-body" id="modal-body">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal" id="checkout-modal">
+        <div class="modal-content checkout-modal-content">
+            <button class="modal-close" id="checkout-modal-close"><i class="fas fa-times"></i></button>
+            <div class="checkout-header">
+                <h3><i class="fas fa-lock"></i> Secure Checkout</h3>
+                <div class="checkout-steps">
+                    <div class="checkout-step active" data-step="1">Shipping</div>
+                    <div class="checkout-step" data-step="2">Payment</div>
+                    <div class="checkout-step" data-step="3">Review</div>
+                </div>
+            </div>
+            <div class="modal-body" id="checkout-body">
+                <!-- Step 1: Shipping -->
+                <div class="checkout-pane active" data-pane="1">
+                    <h4>Shipping Information</h4>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ship-first">First Name *</label>
+                            <input type="text" id="ship-first" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ship-last">Last Name *</label>
+                            <input type="text" id="ship-last" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ship-email">Email *</label>
+                        <input type="email" id="ship-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ship-address">Address *</label>
+                        <input type="text" id="ship-address" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ship-city">City *</label>
+                            <input type="text" id="ship-city" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ship-zip">ZIP / Postal *</label>
+                            <input type="text" id="ship-zip" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ship-country">Country *</label>
+                        <select id="ship-country" required>
+                            <option value="">Select country</option>
+                            <option value="US">United States</option>
+                            <option value="CA">Canada</option>
+                            <option value="UK">United Kingdom</option>
+                            <option value="AU">Australia</option>
+                            <option value="IN">India</option>
+                            <option value="DE">Germany</option>
+                            <option value="FR">France</option>
+                            <option value="JP">Japan</option>
+                            <option value="OTHER">Other</option>
+                        </select>
+                    </div>
+                    <div class="checkout-actions">
+                        <button class="btn btn-outline" id="checkout-cancel">Cancel</button>
+                        <button class="btn btn-primary" id="checkout-to-payment">Continue to Payment</button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Payment -->
+                <div class="checkout-pane" data-pane="2">
+                    <h4>Payment Method</h4>
+                    <div class="payment-methods-select">
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="card" checked>
+                            <span><i class="fas fa-credit-card"></i> Credit / Debit Card</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="paypal">
+                            <span><i class="fab fa-paypal"></i> PayPal</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="apple">
+                            <span><i class="fab fa-apple"></i> Apple Pay</span>
+                        </label>
+                    </div>
+                    <div class="card-fields" id="card-fields">
+                        <div class="form-group">
+                            <label for="card-name">Name on Card *</label>
+                            <input type="text" id="card-name" placeholder="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label for="card-number">Card Number *</label>
+                            <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="card-expiry">Expiry (MM/YY) *</label>
+                                <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5">
+                            </div>
+                            <div class="form-group">
+                                <label for="card-cvc">CVC *</label>
+                                <input type="text" id="card-cvc" placeholder="123" maxlength="4">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="checkout-actions">
+                        <button class="btn btn-outline" id="checkout-back-shipping">Back</button>
+                        <button class="btn btn-primary" id="checkout-to-review">Review Order</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Review -->
+                <div class="checkout-pane" data-pane="3">
+                    <h4>Review Your Order</h4>
+                    <div class="checkout-summary" id="checkout-summary">
+                        <!-- Populated by JS -->
+                    </div>
+                    <div class="checkout-actions">
+                        <button class="btn btn-outline" id="checkout-back-payment">Back</button>
+                        <button class="btn btn-primary" id="place-order-btn"><i class="fas fa-lock"></i> Place Order</button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Success -->
+                <div class="checkout-pane" data-pane="4">
+                    <div class="checkout-success">
+                        <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+                        <h2>Order Confirmed!</h2>
+                        <p>Thank you for your purchase. A confirmation has been sent to your email.</p>
+                        <div class="order-id" id="order-id"></div>
+                        <button class="btn btn-primary" id="checkout-done">Continue Shopping</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Account Modal -->
+    <div class="modal" id="account-modal">
+        <div class="modal-content account-modal-content">
+            <button class="modal-close" id="account-modal-close"><i class="fas fa-times"></i></button>
+            <div class="account-header">
+                <div class="account-avatar"><i class="fas fa-user"></i></div>
+                <div>
+                    <h3>My Account</h3>
+                    <p>Manage your profile and preferences</p>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form class="account-form" id="account-form">
+                    <div class="form-group">
+                        <label for="account-name">Display Name</label>
+                        <input type="text" id="account-name" placeholder="Your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="account-email">Email</label>
+                        <input type="email" id="account-email" placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="account-phone">Phone</label>
+                        <input type="tel" id="account-phone" placeholder="+1 234 567 890">
+                    </div>
+                    <div class="account-stats">
+                        <div class="account-stat">
+                            <span id="account-orders">0</span>
+                            <small>Orders</small>
+                        </div>
+                        <div class="account-stat">
+                            <span id="account-uploads">0</span>
+                            <small>Uploads</small>
+                        </div>
+                        <div class="account-stat">
+                            <span id="account-wishlist">0</span>
+                            <small>Wishlist</small>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Save Profile</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Cookie Consent -->
+    <div class="cookie-banner" id="cookie-banner">
+        <div class="container">
+            <p>We use cookies to enhance your browsing experience and analyze our traffic.</p>
+            <div class="cookie-actions">
+                <button class="btn btn-outline" id="cookie-decline">Decline</button>
+                <button class="btn btn-primary" id="cookie-accept">Accept</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
