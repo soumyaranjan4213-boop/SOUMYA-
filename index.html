@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Soumya Design Studio — Upload, Create & Publish</title>
-  <meta name="description" content="A modern professional platform to upload designs, process images, and publish unique creations." />
+  <title>Soumya Studio — Professional Marketplace</title>
+  <meta name="description" content="A curated professional marketplace for art, decor, and design. Discover unique products, publish your own designs, and connect with creators." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -16,20 +16,27 @@
 
   <header class="site-header" role="banner">
     <div class="container header-inner">
-      <a href="#" class="logo" aria-label="Soumya Design Studio Home">
+      <a href="#" class="logo" aria-label="Soumya Studio Home" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">
         <span class="logo-mark">S</span>
         <span class="logo-text">Soumya</span>
       </a>
       <nav aria-label="Primary navigation" class="primary-nav">
         <ul>
+          <li><a href="#shop">Shop</a></li>
           <li><a href="#upload-design">Upload Design</a></li>
           <li><a href="#uploads">My Uploads</a></li>
           <li><a href="#get-in-touch">Get in Touch</a></li>
         </ul>
       </nav>
-      <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="primary-nav" onclick="toggleMenu()">
-        <i class="ph ph-list"></i>
-      </button>
+      <div class="header-actions">
+        <button class="cart-btn" onclick="openCart()" aria-label="Open shopping cart" aria-expanded="false">
+          <i class="ph ph-shopping-bag"></i>
+          <span class="cart-count" id="cart-count">0</span>
+        </button>
+        <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="primary-nav" onclick="toggleMenu()">
+          <i class="ph ph-list"></i>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -37,23 +44,45 @@
     <!-- Hero -->
     <section class="hero" aria-label="Introduction">
       <div class="container hero-inner">
-        <h1 class="hero-title">Create. Refine. <span>Publish.</span></h1>
-        <p class="hero-subtitle">Upload your vision, process it with precision, and publish something uniquely yours.</p>
-        <a href="#upload-design" class="btn btn-primary">Start Your Design</a>
+        <h1 class="hero-title">Curated Design. <span>Unique Creations.</span></h1>
+        <p class="hero-subtitle">Discover professional art, decor, and design objects — or publish your own vision to the world.</p>
+        <div class="hero-cta">
+          <a href="#shop" class="btn btn-primary">Explore Shop</a>
+          <a href="#upload-design" class="btn btn-outline">Publish Design</a>
+        </div>
       </div>
       <div class="hero-decoration" aria-hidden="true"></div>
     </section>
 
-    <!-- Upload Design Wizard -->
+    <!-- Shop -->
+    <section id="shop" class="shop" aria-label="Shop">
+      <div class="container">
+        <div class="section-header">
+          <h2>Shop</h2>
+          <p>A curated selection of professional art, decor, and design pieces.</p>
+        </div>
+
+        <!-- Category Filter -->
+        <div class="filter-bar" aria-label="Filter products by category">
+          <button class="filter-btn active" onclick="filterProducts('All', this)">All</button>
+          <button class="filter-btn" onclick="filterProducts('Art', this)">Art</button>
+          <button class="filter-btn" onclick="filterProducts('Decor', this)">Decor</button>
+          <button class="filter-btn" onclick="filterProducts('Textiles', this)">Textiles</button>
+        </div>
+
+        <div id="product-grid" class="product-grid" aria-live="polite" aria-label="Product listings"></div>
+      </div>
+    </section>
+
+    <!-- Upload Design -->
     <section id="upload-design" class="upload-design" aria-label="Upload Design">
       <div class="container">
         <div class="section-header">
           <h2>Upload Design</h2>
-          <p>A smooth, guided journey from photo to published design — in 5 steps.</p>
+          <p>A guided journey from photo to published design — in 5 steps.</p>
         </div>
 
         <div class="wizard" role="region" aria-label="Design upload wizard">
-          <!-- Step Indicator -->
           <div class="wizard-steps" aria-label="Wizard progress" role="tablist">
             <button class="step-tab" id="tab-step-1" onclick="goToStep(1)" aria-selected="true" aria-controls="panel-step-1" role="tab" aria-label="Step 1 Upload">1. Upload</button>
             <button class="step-tab" id="tab-step-2" onclick="goToStep(2)" aria-selected="false" aria-controls="panel-step-2" role="tab" aria-label="Step 2 Process">2. Process</button>
@@ -62,9 +91,7 @@
             <button class="step-tab" id="tab-step-5" onclick="goToStep(5)" aria-selected="false" aria-controls="panel-step-5" role="tab" aria-label="Step 5 Publish">5. Publish</button>
           </div>
 
-          <!-- Step Panels -->
           <div class="wizard-panels">
-            <!-- Step 1 -->
             <div id="panel-step-1" class="wizard-panel active" role="tabpanel" aria-labelledby="tab-step-1">
               <h3>Step 1 — Upload Your Photo</h3>
               <p>Choose a high-quality image to begin. Only images are accepted.</p>
@@ -81,10 +108,9 @@
               </form>
             </div>
 
-            <!-- Step 2 -->
             <div id="panel-step-2" class="wizard-panel" role="tabpanel" aria-labelledby="tab-step-2" hidden>
               <h3>Step 2 — Process Design</h3>
-              <p>Review the design adjustments before finalizing. Make any edits needed.</p>
+              <p>Review the design adjustments before finalizing.</p>
               <div class="process-preview" aria-label="Design process preview">
                 <img id="process-img" src="" alt="Processed design preview" loading="lazy" />
                 <div class="process-meta">
@@ -98,10 +124,9 @@
               </div>
             </div>
 
-            <!-- Step 3 -->
             <div id="panel-step-3" class="wizard-panel" role="tabpanel" aria-labelledby="tab-step-3" hidden>
               <h3>Step 3 — Preview Design</h3>
-              <p>Preview how your design will look once published. Everything looks good?</p>
+              <p>Preview how your design will look once published.</p>
               <div class="preview-card" aria-label="Design preview card">
                 <img id="preview-img" src="" alt="Design preview" loading="lazy" />
                 <div class="preview-caption">
@@ -115,7 +140,6 @@
               </div>
             </div>
 
-            <!-- Step 4 -->
             <div id="panel-step-4" class="wizard-panel" role="tabpanel" aria-labelledby="tab-step-4" hidden>
               <h3>Step 4 — Finalize</h3>
               <p>Confirm details and add any final notes before publishing.</p>
@@ -131,7 +155,6 @@
               </form>
             </div>
 
-            <!-- Step 5 -->
             <div id="panel-step-5" class="wizard-panel" role="tabpanel" aria-labelledby="tab-step-5" hidden>
               <h3>Step 5 — Publish</h3>
               <p>Your design is ready to go live. Publish it to your uploads.</p>
@@ -159,32 +182,7 @@
           <h2>My Uploads</h2>
           <p>A curated gallery of your published designs. Unique, professional, and entirely yours.</p>
         </div>
-        <div id="uploads-grid" class="uploads-grid" aria-live="polite" aria-label="Uploaded designs gallery">
-          <div class="upload-card placeholder" aria-hidden="true">
-            <div class="upload-card-inner">
-              <div class="upload-img-wrapper">
-                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=600&fit=crop&q=80" alt="Sample design placeholder" />
-              </div>
-              <div class="upload-card-body">
-                <h3>Mountain Light</h3>
-                <p>Published yesterday</p>
-                <a href="#" class="btn btn-sm btn-outline">View</a>
-              </div>
-            </div>
-          </div>
-          <div class="upload-card placeholder" aria-hidden="true">
-            <div class="upload-card-inner">
-              <div class="upload-img-wrapper">
-                <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=600&h=600&fit=crop&q=80" alt="Sample design placeholder" />
-              </div>
-              <div class="upload-card-body">
-                <h3>Golden Fields</h3>
-                <p>Published 3 days ago</p>
-                <a href="#" class="btn btn-sm btn-outline">View</a>
-              </div>
-            </div>
-          </div>
-        </div>
+        <div id="uploads-grid" class="uploads-grid" aria-live="polite" aria-label="Uploaded designs gallery"></div>
       </div>
     </section>
 
@@ -222,11 +220,71 @@
     </section>
   </main>
 
+  <!-- Cart Sidebar -->
+  <aside id="cart-sidebar" class="cart-sidebar" role="dialog" aria-modal="true" aria-label="Shopping cart" hidden>
+    <div class="cart-sidebar-inner">
+      <div class="cart-header">
+        <h3>Shopping Cart</h3>
+        <button onclick="closeCart()" class="cart-close" aria-label="Close cart"><i class="ph ph-x"></i></button>
+      </div>
+      <div id="cart-items" class="cart-items" aria-live="polite"></div>
+      <div class="cart-footer">
+        <div class="cart-total">Total: <span id="cart-total">$0.00</span></div>
+        <a href="#checkout" onclick="openCheckout(); closeCart(); return false;" class="btn btn-primary">Checkout</a>
+      </div>
+    </div>
+    <div class="cart-overlay" onclick="closeCart()"></div>
+  </aside>
+
+  <!-- Quick View Modal -->
+  <div id="quick-view" class="quick-view-modal" role="dialog" aria-modal="true" aria-label="Product details" hidden>
+    <div class="quick-view-inner">
+      <button onclick="closeQuickView()" class="quick-close" aria-label="Close quick view"><i class="ph ph-x"></i></button>
+      <img id="qv-img" src="" alt="" />
+      <div class="qv-body">
+        <span id="qv-tag" class="qv-tag"></span>
+        <h3 id="qv-title"></h3>
+        <p class="qv-price" id="qv-price"></p>
+        <p id="qv-desc"></p>
+        <button onclick="addToCartFromQuickView()" class="btn btn-primary">Add to Cart</button>
+      </div>
+    </div>
+    <div class="quick-overlay" onclick="closeQuickView()"></div>
+  </div>
+
+  <!-- Checkout -->
+  <section id="checkout" class="checkout" aria-label="Checkout" hidden>
+    <div class="container">
+      <div class="section-header">
+        <h2>Checkout</h2>
+        <p>Review your order and complete your purchase.</p>
+      </div>
+      <div class="checkout-grid">
+        <form id="checkout-form" class="checkout-form" onsubmit="placeOrder(event)" aria-label="Checkout form">
+          <label for="checkout-name">Full Name</label>
+          <input type="text" id="checkout-name" name="checkout-name" placeholder="Your name" required />
+          <label for="checkout-email">Email</label>
+          <input type="email" id="checkout-email" name="checkout-email" placeholder="you@example.com" required />
+          <label for="checkout-address">Shipping Address</label>
+          <textarea id="checkout-address" name="checkout-address" rows="3" placeholder="Your address" required></textarea>
+          <button type="submit" class="btn btn-primary">Place Order</button>
+        </form>
+        <aside class="checkout-summary" aria-label="Order summary">
+          <h3>Order Summary</h3>
+          <div id="checkout-items"></div>
+          <div class="checkout-total">Total: <span id="checkout-total">$0.00</span></div>
+        </aside>
+      </div>
+      <a href="#shop" onclick="document.getElementById('checkout').hidden=true; window.scrollTo({top:document.getElementById('shop').offsetTop-80,behavior:'smooth'}); return false;" class="btn btn-outline">Back to Shop</a>
+    </div>
+  </section>
+
   <footer class="site-footer" role="contentinfo">
     <div class="container footer-inner">
-      <p>&copy; <span id="year"></span> Soumya Design Studio. All rights reserved.</p>
+      <p>&copy; <span id="year"></span> Soumya Studio. All rights reserved.</p>
       <nav aria-label="Footer navigation">
         <ul>
+          <li><a href="#shop">Shop</a></li>
           <li><a href="#upload-design">Upload</a></li>
           <li><a href="#uploads">Uploads</a></li>
           <li><a href="#get-in-touch">Contact</a></li>

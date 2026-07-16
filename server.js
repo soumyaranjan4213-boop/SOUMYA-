@@ -84,7 +84,42 @@ app.get('/api/uploads', (req, res) => {
   });
 });
 
-// Serve uploads folder statically
+// Product catalog
+const products = [
+  { id: 1, name: "Lumina Art Print", category: "Art", price: 48.00, image: "https://images.unsplash.com/photo-1549490349-8643362247b5?w=600&h=600&fit=crop&q=80", tag: "Bestseller", description: "A high-quality museum-grade art print on archival paper." },
+  { id: 2, name: "Aether Studio Lamp", category: "Decor", price: 128.00, image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=600&h=600&fit=crop&q=80", tag: "New", description: "Minimalist ceramic studio lamp with warm LED glow." },
+  { id: 3, name: "Meridian Ceramic Vase", category: "Decor", price: 85.00, image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=600&fit=crop&q=80", tag: "Unique", description: "Hand-thrown stoneware vase with matte charcoal finish." },
+  { id: 4, name: "Crest Linen Throw", category: "Textiles", price: 62.00, image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600&h=600&fit=crop&q=80", tag: "Popular", description: "Organic linen throw in natural oat with subtle texture." },
+  { id: 5, name: "Nocturne Abstract Canvas", category: "Art", price: 220.00, image: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=600&h=600&fit=crop&q=80", tag: "Limited", description: "Large format abstract painting with deep navy and gold accents." },
+  { id: 6, name: "Terra Planter Set", category: "Decor", price: 72.00, image: "https://images.unsplash.com/photo-1466692476868-aef5ae4a5584?w=600&h=600&fit=crop&q=80", tag: "New", description: "Hand-painted terracotta planters with drainage saucers." },
+  { id: 7, name: "Sable Wool Rug", category: "Textiles", price: 340.00, image: "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=600&h=600&fit=crop&q=80", tag: "Bestseller", description: "Hand-tufted wool rug with abstract geometric pattern." },
+  { id: 8, name: "Aurora Glass Sculpture", category: "Art", price: 195.00, image: "https://images.unsplash.com/photo-1515405295579-ba7b45403062?w=600&h=600&fit=crop&q=80", tag: "Unique", description: "Blown glass sculpture with iridescent amber and cobalt tones." }
+];
+
+app.get('/api/products', (req, res) => {
+  res.json({ success: true, products });
+});
+
+// Simple in-memory cart state (optional)
+let cart = [];
+
+app.get('/api/cart', (req, res) => {
+  res.json({ success: true, cart });
+});
+
+app.post('/api/cart', (req, res) => {
+  const { productId, quantity = 1 } = req.body;
+  const product = products.find(p => p.id === productId);
+  if (!product) return res.status(404).json({ success: false, message: 'Product not found' });
+  const existing = cart.find(item => item.id === product.id);
+  if (existing) {
+    existing.quantity += quantity;
+  } else {
+    cart.push({ ...product, quantity });
+  }
+  res.json({ success: true, cart });
+});
+
 app.use('/uploads', express.static(uploadDir));
 
 app.get('/', (req, res) => {
